@@ -1,0 +1,13 @@
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+scikit-learn>=1.4
+nltk>=3.8
+matplotlib>=3.8
+seaborn>=0.13
+requests>=2.31
+pillow>=10.0
+torch>=2.2
+torchvision>=0.17
+gradio>=4.40
+kagglehub>=0.2
