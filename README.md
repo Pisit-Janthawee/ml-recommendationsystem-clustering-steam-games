@@ -9,7 +9,7 @@
 - **Metric** → recommendations: genre precision@10, same developer@10, coverage, quality, diversity · GAN: FID and a memorisation check
 - **Notebooks** → `steam_recommendation_clustering.ipynb` (EDA, text mining, recommender, clusters, app) · `steam_thumbnail_gan.ipynb` (GAN)
 - **App** → `app.py`: recommend, explore clusters, generate thumbnails (Gradio)
-- **Result** → player tags recommend best (genre precision **0.645** vs 0.461 for descriptions and 0.215 for popularity); quality re-ranking lifts review quality from 0.605 to **0.799**; the GAN reaches FID **101.5** (plain DCGAN: 226.6) without copying its training images
+- **Result** → player tags recommend best (genre precision **0.645** vs 0.461 for descriptions and 0.215 for popularity); quality re-ranking lifts review quality from 0.605 to **0.799**; the GAN reaches FID **101–122** (plain DCGAN: 227) without copying its training images
 
 | Recommender (2,000 query games) | Genre precision@10 | Same developer@10 | Coverage | Mean Wilson |
 |---|---|---|---|---|
@@ -35,7 +35,7 @@
 - **Titles** → Steam Game Recommendation System and Clustering · Steam Game Thumbnail Generation with a GAN
 - **Import** → Create → Import Notebook → upload each `.ipynb`
 - **Input** → dataset `nikdavis/steam-store-games` (mounted at `/kaggle/input/datasets/nikdavis/steam-store-games`; found anywhere under `/kaggle/input`)
-- **Accelerator** → recommender: CPU, about 5 minutes · GAN: **GPU**, 100 epochs took about 18 minutes on an RTX 5060 (expect 20-40 minutes on Kaggle GPUs)
+- **Accelerator** → recommender: CPU, about 5 minutes · GAN: **GPU**, 100 epochs took about 17 minutes on an RTX 5060 (expect 20-40 minutes on Kaggle GPUs)
 - **Internet** → needed for the header-image cards, the Gradio app link and the GAN (images come from Steam's CDN)
 - **Settings** → top cell of each notebook, documented in its note
 - **Safety** → `SAVE_FIGURES = False` and `LAUNCH_APP = False` → nothing is written and no app is started by default
@@ -44,7 +44,9 @@
 
 ![recommender architecture](assets/recommender_architecture.png)
 
-Editable sources: `assets/recommender_architecture.drawio`, `assets/gan_architecture.drawio` (open in draw.io).
+![recommender categorization](assets/recommender_categorization.png)
+
+Editable sources: `assets/*.drawio` (open in draw.io).
 
 ## [5/11] Data cleansing
 
@@ -100,17 +102,26 @@ Editable sources: `assets/recommender_architecture.drawio`, `assets/gan_architec
 
 ## [10/11] Thumbnail GAN
 
-![gan architecture](assets/gan_architecture.png)
+![generative categorization](assets/generative_categorization.png)
 
-- **Data** → 11,999 Steam headers at 64 × 128 (2:1 banner shape), 2,000 held out for evaluation
-- **Model** → generator with upsample + convolution (3.7 M parameters) vs spectral-normalised discriminator (2.8 M), hinge loss, two learning rates, averaged (EMA) generator weights; 100 epochs ≈ 18 minutes on an RTX 5060
-- **Quality** → FID **101.5** (real vs real 25.8, random noise 379.6); the plain DCGAN first attempt scored 226.6 with checkerboard artefacts
-- **No copying** → generated images sit no closer to the training set than unseen real thumbnails (similarity 0.774 vs 0.789)
-- **What it learned** → banner layouts, colour moods and title-like text blocks; not readable letters or detailed characters
+- **Input → output** → 128 random numbers → one 64 × 128 thumbnail · unconditional: not text-to-image, not image-to-image
+- **Data** → 11,999 Steam headers (2 : 1 banner shape), 2,000 held out for evaluation
+- **Model** → upsample-conv generator (3.7 M) vs spectral-norm discriminator (2.8 M), hinge loss, two learning rates, EMA weights; 100 epochs ≈ 17 min on an RTX 5060
+- **Quality** → FID **101–122** over two runs (real vs real 26, noise 380); plain DCGAN 227
+- **No copying** → fakes are less similar to the training set (0.766) than unseen real thumbnails are (0.789)
+- **Learned** → layouts, colour moods, title-like blocks; not readable text
 
-![generated thumbnails](assets/gan_04_generated.png)
+![training loop](assets/gan_training_loop.png)
 
-![latent walk](assets/gan_06_latent_walk.png)
+![generator](assets/gan_generator_architecture.png)
+
+![discriminator](assets/gan_discriminator_architecture.png)
+
+![training curves](assets/gan_03_training_curves.png)
+
+![generated thumbnails](assets/gan_05_generated.png)
+
+![latent walk](assets/gan_07_latent_walk.png)
 
 ## [11/11] App and next steps
 
