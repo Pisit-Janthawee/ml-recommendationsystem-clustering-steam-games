@@ -23,7 +23,7 @@
 
 - **Title** → Steam Game Recommendation System and Clustering
 - **Import** → Create → Import Notebook → upload the `.ipynb`
-- **Input** → dataset `nikdavis/steam-store-games` (found anywhere under `/kaggle/input`)
+- **Input** → dataset `nikdavis/steam-store-games` (mounted at `/kaggle/input/datasets/nikdavis/steam-store-games`; found anywhere under `/kaggle/input`)
 - **Accelerator** → none (CPU, about 4 minutes)
 - **Settings** → top cell of the notebook, documented in its note
 - **Safety** → `SAVE_FIGURES = False` → nothing is written; `True` exports the charts to `WORK_DIR/assets`
