@@ -23,12 +23,38 @@
 
 ## [2/11] Objective
 
+- **Problem** → 27,000+ games and 170x more releases per year than in 2006; attention goes to a few hits, good small games drown
+- **Real-world use** → "Because you liked X" lists and cluster shelves for a storefront, working from day one without user history; GAN thumbnails as a mood board for banner ideas
 - **Business type** → gaming and entertainment (digital storefront)
 - **Business objective** → help players navigate 27,000 games, raise engagement and retention, and spread attention beyond the few hits that already dominate
 - **Learning problems** → item similarity (content-based recommendation), unsupervised grouping (clustering), image generation (GAN)
 - **Expected result** → similarity(game attributes, the game a player liked) = match score, re-ranked by review quality
 - **Use of results** → "More like this" lists and store shelves built from clusters; generated thumbnails as a creative prototype
 - **Benefits** → better discovery in the long tail, insight into what players reward (and punish), and a reusable, measurable pipeline
+
+## Highlights
+
+**Question:** do the most-played games get the best reviews?
+
+**Answer:** no. Attention is extremely unequal (Gini 0.944: the top 1 % of games hold 63.8 % of all ratings), but quality is not: prolific developers are reviewed no better (0.776 vs 0.780, p = 0.32). A popularity list hides most of the good games.
+
+![concentration](assets/02_concentration.png)
+
+**Question:** what do players reward, and what do they punish?
+
+**Answer:** story, puzzles, style and music win; online, PvP and survival lose. Tags "cute", "visual novel", "great soundtrack" add +0.08 to +0.11 to the positive-review share; "massively multiplayer" costs −0.126.
+
+![tags](assets/05_tags.png)
+
+**Question:** does the recommender beat "show everyone the hits"?
+
+**Answer:** clearly. Player tags find same-genre games 3x as often as popularity (0.645 vs 0.215), and re-ranking by review quality lifts the average Wilson score from 0.605 to 0.799 for a small loss in genre match.
+
+| Recommender | Genre precision@10 | Mean Wilson |
+|---|---|---|
+| Popularity | 0.215 | 0.818 |
+| Tags + text (hybrid) | 0.645 | 0.605 |
+| Hybrid + quality re-ranking | 0.624 | 0.799 |
 
 ## [3/11] Run on Kaggle
 
@@ -67,9 +93,6 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 - **What players punish** → massively multiplayer (−0.126), PvP, crafting, free-to-play, management, survival, sports, zombies
 - **Effort signals** → Windows + Mac + Linux games 0.828 vs Windows only 0.753; achievements 0.800 vs none 0.738 (correlation, not cause)
 
-![concentration](assets/02_concentration.png)
-
-![tags](assets/05_tags.png)
 
 ## [7/11] What the words say (text mining)
 
