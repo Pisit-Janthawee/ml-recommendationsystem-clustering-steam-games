@@ -61,7 +61,7 @@
 - **Titles** → Steam Game Recommendation System and Clustering · Steam Game Thumbnail Generation with a GAN
 - **Import** → Create → Import Notebook → upload each `.ipynb`
 - **Input** → dataset `nikdavis/steam-store-games` (mounted at `/kaggle/input/datasets/nikdavis/steam-store-games`; found anywhere under `/kaggle/input`)
-- **Accelerator** → recommender: CPU, about 5 minutes · GAN: **GPU**, 100 epochs took about 17 minutes on an RTX 5060 (expect 20-40 minutes on Kaggle GPUs)
+- **Accelerator** → recommender: CPU, about 5 minutes · GAN: **GPU**, default light run (6,000 thumbnails, 40 epochs) about 15 minutes on a Kaggle T4, FID about 178; full run (`N_IMAGES = 12000`, `EPOCHS = 100`) about 45-60 minutes, FID 101-122
 - **Internet** → needed for the header-image cards, the Gradio app link and the GAN (images come from Steam's CDN)
 - **Settings** → top cell of each notebook, documented in its note
 - **Safety** → `SAVE_FIGURES = False` and `LAUNCH_APP = False` → nothing is written and no app is started by default
