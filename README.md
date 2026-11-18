@@ -1,6 +1,6 @@
 # Steam Game Recommendation System, Clustering and Thumbnail GAN
 
-![Because you liked Portal 2](assets/11_recommendation_cards.png)
+![Because you liked Portal 2](assets/png/11_recommendation_cards.png)
 
 ## [1/11] Overview
 
@@ -38,13 +38,13 @@
 
 **Answer:** no. Attention is extremely unequal (Gini 0.944: the top 1 % of games hold 63.8 % of all ratings), but quality is not: prolific developers are reviewed no better (0.776 vs 0.780, p = 0.32). A popularity list hides most of the good games.
 
-![concentration](assets/02_concentration.png)
+![concentration](assets/png/02_concentration.png)
 
 **Question:** what do players reward, and what do they punish?
 
 **Answer:** story, puzzles, style and music win; online, PvP and survival lose. Tags "cute", "visual novel", "great soundtrack" add +0.08 to +0.11 to the positive-review share; "massively multiplayer" costs −0.126.
 
-![tags](assets/05_tags.png)
+![tags](assets/png/05_tags.png)
 
 **Question:** does the recommender beat "show everyone the hits"?
 
@@ -68,11 +68,11 @@
 
 ## [4/11] Architecture
 
-![recommender architecture](assets/recommender_architecture.png)
+![recommender architecture](assets/png/recommender_architecture.png)
 
-![recommender categorization](assets/recommender_categorization.png)
+![recommender categorization](assets/png/recommender_categorization.png)
 
-Editable sources: `assets/*.drawio` (open in draw.io).
+Editable sources: `assets/drawio/*.drawio` (open in draw.io).
 
 ## [5/11] Data cleansing
 
@@ -102,7 +102,7 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 - **Words of badly-reviewed games** → player −13.1, race, build, PvP, realistic, manage, car, guild, vehicle, simulation, survival
 - **Insight** → descriptions that sell a story, a puzzle or a mood belong to better-reviewed games than those promising players, realism, building and survival
 
-![text insights](assets/07_text_insights.png)
+![text insights](assets/png/07_text_insights.png)
 
 ## [8/11] Recommender
 
@@ -112,7 +112,7 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 - **Quality re-ranking** → β = 0.2 lifts mean Wilson 0.605 → 0.799 for genre precision 0.645 → 0.624; coverage 42.2% → 30.8%
 - **Examples** → Dark Souls III → Dark Souls Remastered, Dark Souls II, Dragon's Dogma, Skyrim · Cities: Skylines → Parkitect, Prison Architect, SimCity 4 · Portal 2 → Portal first, then shooters (puzzle games like The Talos Principle are missed)
 
-![leaderboard](assets/08_leaderboard.png)
+![leaderboard](assets/png/08_leaderboard.png)
 
 ## [9/11] Clusters
 
@@ -121,11 +121,11 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 - **Quality by cluster** → visual novels (median Wilson 0.714), FPS (0.690), strategy (0.685) best; casual / hidden object (0.371) weakest
 - **Distinctive words** → each cluster also gets the description words that set it apart (e.g. horror: "horror, story, explore, dark")
 
-![cluster map](assets/10_cluster_map.png)
+![cluster map](assets/png/10_cluster_map.png)
 
 ## [10/11] Thumbnail GAN
 
-![generative categorization](assets/generative_categorization.png)
+![generative categorization](assets/png/generative_categorization.png)
 
 - **Input → output** → 128 random numbers → one 64 × 128 thumbnail · unconditional: not text-to-image, not image-to-image
 - **Data** → 11,999 Steam headers (2 : 1 banner shape), 2,000 held out for evaluation
@@ -134,17 +134,17 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 - **No copying** → fakes are less similar to the training set (0.766) than unseen real thumbnails are (0.789)
 - **Learned** → layouts, colour moods, title-like blocks; not readable text
 
-![training loop](assets/gan_training_loop.png)
+![training loop](assets/png/gan_training_loop.png)
 
-![generator](assets/gan_generator_architecture.png)
+![generator](assets/png/gan_generator_architecture.png)
 
-![discriminator](assets/gan_discriminator_architecture.png)
+![discriminator](assets/png/gan_discriminator_architecture.png)
 
-![training curves](assets/gan_03_training_curves.png)
+![training curves](assets/png/gan_03_training_curves.png)
 
-![generated thumbnails](assets/gan_05_generated.png)
+![generated thumbnails](assets/png/gan_05_generated.png)
 
-![latent walk](assets/gan_07_latent_walk.png)
+![latent walk](assets/png/gan_07_latent_walk.png)
 
 ## [11/11] App and next steps
 
@@ -156,7 +156,7 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 - **Hosting** → GitHub cannot run apps; `app.py` works as a Hugging Face Space (add the Kaggle key as a secret)
 - **Next steps** → collaborative filtering with play-time or review data; learn the tag vs text weight; evaluate against real co-play data; a genre-conditioned GAN at higher resolution
 
-![app GAN preview](assets/app_gan_preview.png)
+![app GAN preview](assets/png/app_gan_preview.png)
 
 ## Files
 
@@ -166,5 +166,5 @@ Editable sources: `assets/*.drawio` (open in draw.io).
 | `steam_thumbnail_gan.ipynb` | thumbnail download, GAN training, FID, memorisation check, latent walks |
 | `app.py`, `requirements.txt` | standalone Gradio app |
 | `models/generator_ema.pt` | trained GAN generator (averaged weights) |
-| `assets/` | figures and draw.io diagrams |
+| `assets/png/` · `assets/drawio/` | figures (PNG) · editable draw.io diagrams |
 | `arch/` | earlier versions: content-based TF-IDF recommender and the first clustering attempt |
